@@ -30,9 +30,9 @@ There are also bootstrap installer scripts that provide a half-assed implementat
 ### Linux, macOS, FreeBSD, and NetBSD
 
 ```
-curl --silent --location \
-    https://raw.githubusercontent.com/houseabsolute/ubi/master/bootstrap/bootstrap-ubi.sh |
-    sh
+sh -c "$(\
+    curl --silent --show-error --location \
+    https://raw.githubusercontent.com/houseabsolute/ubi/master/bootstrap/bootstrap-ubi.sh)"
 ```
 
 If you run this as a non-root user, it will install `ubi` into `$HOME/bin`. If run as root it
@@ -54,9 +54,9 @@ can set them on the command line. Note that you need to set them on the _right_ 
 For example, to install a specific version of `ubi` using the `TAG` env var:
 
 ```
-curl --silent --location \
-    https://raw.githubusercontent.com/houseabsolute/ubi/master/bootstrap/bootstrap-ubi.sh |
-    TAG=v0.0.15 sh
+TAG=v0.0.15 sh -c "$(\
+    curl --silent --show-error --location \
+    https://raw.githubusercontent.com/houseabsolute/ubi/master/bootstrap/bootstrap-ubi.sh)"
 ```
 
 **Note for GitHub Enterprise:** If you are running this script from an Action in a GitHub Enteprise
@@ -253,9 +253,9 @@ var, and in that case the rate limits are per repository.
 - name: Install UBI
   shell: bash
   run: |
-    curl --silent --location \
-        https://raw.githubusercontent.com/houseabsolute/ubi/master/bootstrap/bootstrap-ubi.sh |
-        sh
+    sh -c "$(\
+        curl --silent --show-error --location \
+        https://raw.githubusercontent.com/houseabsolute/ubi/master/bootstrap/bootstrap-ubi.sh)"
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -321,7 +321,7 @@ install `mise` and use it to run `precious` as follows:
 
 ```
 # Installs mise
-curl https://mise.run | sh
+sh -c "$(curl -sSL https://mise.run)"
 # Installs precious and other dev tools
 mise install
 ```
